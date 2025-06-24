@@ -15,6 +15,7 @@ public class Area {
         this.habitaciones = new ArrayList<>();
     }
     public void agregarHabitaciones(Habitacion habitacion){
+        habitacion.setArea(this);
         habitaciones.add(habitacion);
     }
     public List<Habitacion> getHabitaciones(){

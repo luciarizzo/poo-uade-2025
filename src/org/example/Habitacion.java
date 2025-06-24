@@ -8,11 +8,13 @@ public class Habitacion {
     private int numero;
     private int camasTotales;
     private int camasDisponibles;
+    private Area area;
 
-    public Habitacion(int numero, int camasTotales){
+    public Habitacion(int numero, int camasTotales, Area area){
         this.numero = numero;
         this.camasTotales = camasTotales;
         this.camasDisponibles = camasTotales;
+        this.area = area;
     }
 
     public boolean ocuparCama(){
@@ -29,5 +31,13 @@ public class Habitacion {
 
     public int getNumero(){
         return numero;
+    }
+
+    public void setArea(Area area) {
+        this.area = area;
+    }
+
+    public Area getArea() {
+        return area;
     }
 }

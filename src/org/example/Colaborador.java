@@ -4,11 +4,7 @@ public class Colaborador {
     private int legajo;
     private String nombreCompleto;
     private String especialidad;
-    private enum TIPOCOLABORADOR {
-        MEDICO,
-        ENFERMERO,
-        KINESIOLOGO
-    }
+
 
     private TIPOCOLABORADOR tipo;
 
@@ -19,6 +15,19 @@ public class Colaborador {
         this.tipo = tipo;
     }
 
+    public int getLegajo() {
+        return legajo;
+    }
 
+    public String getNombreCompleto() {
+        return nombreCompleto;
+    }
 
+    public String getEspecialidad() {
+        return especialidad;
+    }
+
+    public TIPOCOLABORADOR getTipo() {
+        return tipo;
+    }
 }
