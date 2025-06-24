@@ -1,0 +1,70 @@
+@startuml
+
+class Hospital {
+  - nombre: String
+  - direccion: String
+  + consultarArea(nombre: String): Area
+}
+
+class Area {
+  - piso: int
+  - nombre: String
+}
+
+class Habitacion {
+  - numero: int
+  - camasTotales: int
+  - camasDisponibles: int
+}
+
+class Paciente {
+  - nombreCompleto: String
+  - numeroDocumento: int
+  - fechaIngreso: Date
+  - diagnostico: String
+  + getDiagnostico(): String
+  + setDiagnostico(String): void
+}
+
+class Internacion {
+  - habitacion: Habitacion
+  - paciente: Paciente
+  - colaboradorResponsable: Colaborador
+  + obtenerPaciente(): Paciente
+  + getHabitacion(): Habitacion
+}
+
+class Traslado {
+  - paciente: Paciente
+  - areaInicial: Area
+  - areaFinal: Area
+  + setAreaInicial(Area): void
+  + setAreaFinal(Area): void
+}
+
+class Colaborador {
+  - legajo: int
+  - nombreCompleto: String
+  - especialidad: String
+}
+
+class Medico
+class Enfermero
+class Kinesiologo
+
+' Relaciones
+Hospital "1" *-- "1..n" Area
+Area "1" o-- "1..n" Habitacion
+Hospital "1" -- "1..n" Paciente
+Paciente "1" -- "0..n" Internacion
+Colaborador <|-- Medico
+Colaborador <|-- Enfermero
+Colaborador <|-- Kinesiologo
+Internacion "1" -- "1" Paciente
+Internacion "1" -- "1" Colaborador
+Internacion "1" -- "1" Habitacion
+Traslado "1" -- "1" Paciente
+Traslado "1" -- "1" Area : areaInicial
+Traslado "1" -- "1" Area : areaFinal
+
+@enduml
