@@ -2,7 +2,6 @@ package org.example;
 import java.util.ArrayList;
 import java.util.List;
 public class Hospital {
-     /* Composición: un Hospital contiene Áreas. Si el hospital se elimina, las áreas también.*/
     private String nombre;
     private String direccion;
     private List<Area> areas;
