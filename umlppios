@@ -1,0 +1,171 @@
+```jsx
+@startuml
+abstract class Alojamiento{
+- int capacidadMaxima;
+- int numeroUnico;
+- double precioBase;
+- boolean isDisponible;
++ void ocuparAlojamiento();
++ void desocuparAlojamiento();
++ double calcularPrecio(double precioBase, List<ServicioExtra> precio, double impuesto);
+}
+abstract class Apartamento{
+}
+class ApartamentoSimple{
+}
+class ApartamentoDoble{
+}
+class ApartamentoProletario{
+}
+abstract class HabitacionCompartida{
+- int capacidadMaxima;
+- double costoBaseMensual;
+}
+class HabitacionFija{
+}
+class HabitacionRotativa{
+}
+abstract class Camarada{
+- String nombre;
+- int numeroIdentificacion;
+}
+class MiembroActivo{
+}
+class CamaradaEnFormacion{
+}
+class ServicioExtra{
+- String nombreServicio;
+- double costoMensualFijo;
+}
+
+class Reserva{
++ double calcularPrecio();
++ void agregarServicioExtra(ServicioExtra servicio);
+}
+
+class GestorReserva{
+- Reserva crearReserva(Camarada camarada, Alojamiento alojamiento, List<ServicioExtra> servicios);
+- double calcularTotalReserva(Reserva r);
+- List<Alojamiento> obtenerDisponibles();
+}
+
+interface RepositorioAlojamientos{
+- List<Alojamiento> obtenerTodos();
+- void guardar(Alojamiento a);
+}
+
+interface RepositorioReservas{
++ List<Reserva> obtenerTodas();
++ void guardar(Reserva r);
++ void eliminar(Reserva r);
++ List<Reserva> filtrarPorDisponibilidad();
+}
+
+class RepositorioReservasEnMemoria{
+}
+
+class RepositorioAlojamientosEnMemoria{
+}
+
+Alojamiento <|-- Apartamento
+Alojamiento <|-- HabitacionCompartida
+Apartamento <|-- ApartamentoSimple
+Apartamento <|-- ApartamentoDoble
+Apartamento <|-- ApartamentoProletario
+HabitacionCompartida <|-- HabitacionFija
+HabitacionCompartida <|-- HabitacionRotativa
+Camarada <|-- CamaradaEnFormacion
+Camarada <|-- MiembroActivo
+GestorReserva --> ServicioExtra
+Camarada "1" --> "1" Alojamiento : ocupa
+GestorReserva --> RepositorioAlojamientos
+RepositorioAlojamientos <|.. RepositorioAlojamientosEnMemoria
+RepositorioReservas <|.. RepositorioReservasEnMemoria
+RepositorioReservas --> Reserva
+GestorReserva --> Reserva
+GestorReserva --> Alojamiento
+GestorReserva --> Camarada
+GestorReserva --> RepositorioReservas
+RepositorioAlojamientos --> Alojamiento
+Reserva "1" --> "*" ServicioExtra
+Reserva --> Alojamiento
+Reserva --> Camarada
+CamaradaEnFormacion ..> HabitacionCompartida : <<usa solo>>
+MiembroActivo ..> Apartamento : <<usa solo>>
+@enduml
+```
+```jsx
+@startuml
+Class GestorReserva{
++void crearReserva(int numeroLibreta, int numeroApartamento);
++boolean validarDisponibilidad(int numeroApartamento);
++double calculoTotalMensual();
++ List<Reserva> obtenerReservasDeInquilino(int numeroLibreta);
++ Reserva buscarReservaPorApartamento(int numeroApartamento);
++ List<Apartamento> obtenerApartamentosDisponibles();
++ void agregarServicioExtraAReserva(int numeroApartamento, ServicioExtra servicio);
++ void mostrarResumenReservas();
+}
+
+Class Reserva{
+- Apartamento apartamento;
+- Inquilino inquilino;
+- int mes;
+- List<ServicioExtra> serviciosExtras;
++ double calcularCostoTotal();
++ void agregarServicioExtra(ServicioExtra servicio);
+}
+
+abstract class Apartamento{
+- int numero;
+- int capacidadMaxima;
+- double precioBase;
++ abstract double calcularPrecioMensual();
+}
+
+class ApartamentoSimple{
++ double calcularPrecioMensual();
+}
+
+class ApartamentoDoble{
++ double calcularPrecioMensual();
+}
+
+class ApartamentoProletario{
++ double calcularPrecioMensual();
+}
+
+Class Inquilino{
+- String nombre;
+- int numeroLibreta;
+}
+
+Class ServicioExtra{
+- String nombre;
+- double precio;
+}
+
+Interface RepositorioApartamentos{
++ List<Apartamento> obtenerTodos();
+}
+
+Interface RepositorioReservas{
++ void agregarReserva(Reserva reserva);
++ List<Reserva> obtenerTodas();
++ Reserva buscarPorApartamento(int numeroApartamento);
++ List<Reserva> buscarPorInquilino(int numeroLibreta);
+}
+
+Reserva "1" *-- "1" Inquilino
+Reserva "1" *-- "1" Apartamento
+Reserva "1" *-- "0..*" ServicioExtra
+GestorReserva "1" --> "1..*" Reserva
+RepositorioApartamentos <|.. RepositorioApartamentosEnMemoria
+RepositorioReservas <|.. RepositorioReservasEnMemoria
+RepositorioApartamentosEnMemoria "1" --> "1..*" Apartamento
+RepositorioReservasEnMemoria "1" --> "1..*" Reserva
+Apartamento <|-- ApartamentoSimple
+Apartamento <|-- ApartamentoDoble
+Apartamento <|-- ApartamentoProletario
+@enduml
+```

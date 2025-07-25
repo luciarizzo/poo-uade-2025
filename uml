@@ -1,0 +1,55 @@
+| Tipo de Relación | Símbolo UML | ¿Qué representa? | Cuándo usarla |
+| --- | --- | --- | --- |
+| **Asociación** | → o línea simple | Un vínculo entre clases (una conoce a la otra). | Cuando una clase usa o contiene otra, pero no hay una relación jerárquica. |
+| **Dependencia** | ╌╌╌╌> (línea discontinua con flecha abierta) | Una clase **usa temporalmente** a otra. | Cuando una clase necesita otra solo en un método (parámetro, retorno, uso interno). |
+| **Agregación** | ◇──> (rombo blanco) | Una clase contiene a otra, pero esta puede existir sin ella. | Relación “tiene un”, pero con independencia. Ej: Universidad y Profesor. |
+| **Composición** | ◆──> (rombo negro) | Una clase **contiene** a otra y **controla su ciclo de vida**. | Cuando el todo **crea y destruye** a las partes. Ej: Reserva contiene Apartamento. |
+| **Generalización (Herencia)** | ▷ (flecha blanca con línea continua) | Una clase hereda atributos y métodos de otra. | Cuando una subclase hereda de una superclase. |
+| **Realización (Interfaces)** | ╌╌▷ (línea discontinua con flecha blanca) | Una clase implementa una interfaz. | Cuando una clase concreta implementa los métodos de una interfaz. |
+
+### 🔸 Asociación
+
+- ¿Una clase necesita conocer a otra para funcionar?
+- ¿Una clase accede a métodos de otra como parte de su estructura?
+
+> Ej: Reserva → Apartamento.
+>
+
+### 🔸 Dependencia
+
+- ¿La clase solo necesita a otra **temporalmente** (en un método)?
+- ¿La instancia no se guarda como atributo?
+
+> Ej: un método crearReserva(Apartamento a) usa Apartamento, pero no lo guarda.
+>
+
+### 🔸 Agregación
+
+- ¿Una clase contiene a otra, pero las partes pueden vivir sin el todo?
+- ¿Puedo crear la parte antes y pasarla al todo?
+
+> Ej: Curso agrega Alumno, pero los alumnos existen sin el curso.
+>
+
+### 🔸 Composición
+
+- ¿Una clase crea y destruye a otra?
+- ¿Las partes no tienen sentido sin el todo?
+
+> Ej: Reserva compone ServiciosExtras. Si se borra la reserva, se borran los servicios.
+>
+
+### 🔸 Herencia
+
+- ¿Una clase **es un tipo de** otra?
+- ¿Quiero reutilizar código o comportamiento común?
+
+> Ej: ApartamentoSimple hereda de Apartamento.
+>
+
+### 🔸 Realización
+
+- ¿Tengo una interfaz con métodos que una clase concreta implementa?
+
+> Ej: Prestable es una interfaz, y Libro la implementa.
+>

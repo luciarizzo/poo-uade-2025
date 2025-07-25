@@ -1,0 +1,154 @@
+---
+
+### 1. ✅ **Information Expert**
+
+> Asignar responsabilidades a la clase que tiene la información necesaria para cumplirla.
+>
+- `Reserva` es experta en calcular el precio (`calcularPrecio()`), porque tiene acceso al alojamiento, los servicios extra y el camarada. ✔️
+- `Alojamiento` calcula su propio precio (`calcularPrecio(...)`) porque conoce su `precioBase` y puede recibir la lista de servicios extra. ✔️
+
+---
+
+### 2. ✅ **Creator**
+
+> Una clase debe crear instancias de otras clases si las contiene o las usa fuertemente.
+>
+- `GestorReserva` crea la `Reserva`, porque:
+    - Conoce al `Camarada`, al `Alojamiento`, y a los `ServicioExtra`
+    - Es quien **usa** `Reserva` para gestionar la lógica de negocio
+
+        ✔️
+
+
+---
+
+### 3. ✅ **Controller**
+
+> Asignar la responsabilidad de manejar eventos del sistema a una clase que represente una sesión, tarea o caso de uso.
+>
+- `GestorReserva` actúa como **Controller**: centraliza la lógica de reservar, asignar, verificar disponibilidad, etc. ✔️
+
+---
+
+### 4. ✅ **Low Coupling**
+
+> Diseñar clases con poca dependencia entre sí para facilitar el mantenimiento y reutilización.
+>
+- `Reserva` no depende de la implementación concreta de `Alojamiento` ni de `ServicioExtra`, solo de sus abstracciones.
+- `GestorReserva` trabaja con interfaces (`RepositorioReservas`, `RepositorioAlojamientos`) y no con las implementaciones concretas.
+
+    ✔️
+
+
+---
+
+### 5. ✅ **High Cohesion**
+
+> Diseñar clases con una responsabilidad bien definida y enfocada.
+>
+- `Reserva` tiene responsabilidades muy claras: gestionar servicios y calcular precio.
+- `GestorReserva` se ocupa exclusivamente de tareas de negocio/reservas.
+
+    ✔️
+
+
+---
+
+### 6. ✅ **Polymorphism**
+
+> Usar el polimorfismo para manejar variantes de comportamiento.
+>
+- `Alojamiento` tiene un método `calcularPrecio(...)` abstracto, implementado por sus subclases (`ApartamentoSimple`, etc.), lo que permite **tratar a todos los alojamientos de manera uniforme** desde el exterior.
+
+    ✔️
+
+
+---
+
+### 7. ✅ **Indirection**
+
+> Introducir una clase intermedia para desacoplar objetos que necesitan interactuar.
+>
+- Los `Repositorios` funcionan como capas de acceso a datos, desacoplando el `GestorReserva` de la implementación concreta (`EnMemoria`). ✔️
+
+---
+
+## 💎 Principios SOLID
+
+### 1. ✅ **S – Single Responsibility Principle (SRP)**
+
+> Una clase debe tener una única razón para cambiar.
+>
+- `Reserva` solo gestiona reservas.
+- `GestorReserva` solo coordina la lógica de reservas.
+- `RepositorioReservasEnMemoria` solo se encarga de almacenar y recuperar datos.
+
+    ✔️
+
+
+---
+
+### 2. ✅ **O – Open/Closed Principle (OCP)**
+
+> Clases deben estar abiertas a extensión, pero cerradas a modificación.
+>
+- Podés agregar nuevos tipos de `Alojamiento` (ej: `ApartamentoDeluxe`) sin tocar `GestorReserva`.
+- Nuevas estrategias de cálculo de precio se pueden extender mediante herencia.
+
+    ✔️
+
+
+---
+
+### 3. ✅ **L – Liskov Substitution Principle (LSP)**
+
+> Las clases hijas deben poder usarse en lugar de sus padres sin errores.
+>
+- Donde se espera un `Alojamiento`, puede usarse un `ApartamentoSimple`, `HabitacionFija`, etc.
+- `Reserva` trata a todos los alojamientos de forma polimórfica.
+
+    ✔️
+
+
+---
+
+### 4. ✅ **I – Interface Segregation Principle (ISP)**
+
+> Los clientes no deben depender de interfaces que no usan.
+>
+- Tus interfaces (`RepositorioReservas`, `RepositorioAlojamientos`) son pequeñas y específicas. No obligás a implementar métodos innecesarios.
+
+    ✔️
+
+
+---
+
+### 5. ✅ **D – Dependency Inversion Principle (DIP)**
+
+> Los módulos de alto nivel no deben depender de los de bajo nivel, sino de abstracciones.
+>
+- `GestorReserva` depende de `RepositorioReservas` (interfaz), no de `RepositorioReservasEnMemoria` (implementación).
+
+    ✔️
+
+
+---
+
+## 🏁 Conclusión
+
+Tu diseño aplica muy bien **todos los GRASP principales** y **los 5 principios SOLID**:
+
+| Principio | Aplicado en |
+| --- | --- |
+| GRASP – Expert | `Reserva`, `Alojamiento` |
+| GRASP – Creator | `GestorReserva` |
+| GRASP – Controller | `GestorReserva` |
+| GRASP – Low Coupling | Repositorios, Alojamiento, Reserva |
+| GRASP – High Cohesion | Todas las clases |
+| GRASP – Polymorphism | `calcularPrecio()` en subclases |
+| GRASP – Indirection | Interfaces y gestores |
+| SOLID – SRP | Cada clase tiene su única responsabilidad |
+| SOLID – OCP | Podés extender sin modificar código existente |
+| SOLID – LSP | Usás polimorfismo de forma correcta |
+| SOLID – ISP | Interfaces bien diseñadas |
+| SOLID – DIP | Uso de abstracciones en `GestorReserva` |
